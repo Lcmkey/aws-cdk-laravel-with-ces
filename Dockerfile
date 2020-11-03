@@ -36,11 +36,11 @@ RUN set -x && \
     #     Due to this error: `configure: error: Package requirements (oniguruma) were not met: Package 'oniguruma', required by 'virtual:world', not found`
     # for gd
     #   - ref: https://github.com/docker-library/php/pull/910#issuecomment-559383597
-    # if [ $(echo "${VERSION_PHP_FPM_MINOR} >= 7.4" | bc) -eq 1 ]; then \
-        # docker-php-ext-configure gd --with-freetype --with-jpeg ; \
-    # else \
-    docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-png-dir=/usr ; \
-    # fi && \
+    if [ $(echo "${VERSION_PHP_FPM_MINOR} >= 7.4" | bc) -eq 1 ]; then \
+        docker-php-ext-configure gd --with-freetype --with-jpeg ; \
+    else \
+        docker-php-ext-configure gd --with-freetype-dir=/usr --with-jpeg-dir=/usr --with-png-dir=/usr ; \
+    fi && \
     docker-php-ext-install -j$(nproc) \
         bcmath \
         mysqli \

@@ -6,8 +6,7 @@ APP_IMAGE_NAME         := $(APP_IMAGE_NAME)
 APP_REPO_NAME          := $(APP_IMAGE_NAME)-$(ENV_TYPE)
 
 VERSION_PHP_FPM        := $(VERSION_PHP_FPM)
-# VERSION_PHP_FPM_MINOR  := $(shell cut -d '.' -f 1 <<< $(VERSION_PHP_FPM)).$(shell cut -d '.' -f 2 <<< $(VERSION_PHP_FPM))
-VERSION_PHP_FPM_MINOR  := $(VERSION_PHP_FPM)
+VERSION_PHP_FPM_MINOR  := $(shell cut -d '.' -f 1 <<< $(VERSION_PHP_FPM)).$(shell cut -d '.' -f 2 <<< $(VERSION_PHP_FPM))
 VERSION_NGINX          := $(VERSION_NGINX)
 VERSION_OS             := $(VERSION_OS)
 VERSION                := $(VERSION_PHP_FPM)-fpm-$(VERSION_NGINX)-nginx-$(VERSION_OS)
@@ -28,7 +27,7 @@ ECR_URL_CN             := $(AWS_ACCOUNT_ID).dkr.ecr.$(AWS_REGION).amazonaws.com.
 
 run_test:
 	@ echo "hello"
-	@ echo $(shell cut -d '.' -f 1 <<< $(VERSION_PHP_FPM))
+	@ echo $(VERSION_PHP_FPM_MINOR)
 
 help:
 	@ echo 'Welcome to Makefile of aws-cdk-laravel-with-ecs Section 1'
@@ -90,4 +89,4 @@ publish: version
 run: version
 	@ echo '[] Running my-laravel-on-aws-ecs-workshop docker container...'
 
-	docker run --cpus=1 --memory=512m -p 8080:80 $(APP_IMAGE_NAME):latest
+	docker run --cpus=1 --memory=512m -p 8088:80 -d --name aws-cdk-laravel-with-ecs $(APP_IMAGE_NAME):latest

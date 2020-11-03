@@ -17,13 +17,13 @@ import {
 } from "@aws-cdk/aws-ecs";
 import { ApplicationLoadBalancer } from "@aws-cdk/aws-elasticloadbalancingv2";
 
-interface CdkStackStackProps extends StackProps {
+interface FargateStackProps extends StackProps {
   readonly prefix: string;
   readonly stage: string;
 }
 
-export class CdkStack extends Stack {
-  constructor(scope: Construct, id: string, props: CdkStackStackProps) {
+export class FargateStack extends Stack {
+  constructor(scope: Construct, id: string, props: FargateStackProps) {
     super(scope, id, props);
 
     /**

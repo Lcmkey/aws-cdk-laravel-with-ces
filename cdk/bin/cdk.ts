@@ -3,7 +3,8 @@ require("dotenv").config();
 
 import "source-map-support/register";
 import * as cdk from "@aws-cdk/core";
-import { CdkStack } from "../lib/cdk-stack";
+import { FargateStack } from "../lib/fargate-stack";
+import { Ec2Stack } from "../lib/ec2-stack";
 
 /**
  * AWS Account / Region Definition
@@ -25,6 +26,12 @@ const env = {
 
 const app = new cdk.App();
 
-new CdkStack(app, "CdkStack", { env, prefix, stage });
+new FargateStack(app, `${prefix}-${stage}-FargateStack`, {
+  env,
+  prefix,
+  stage,
+});
+
+new Ec2Stack(app, `${prefix}-${stage}-Ec2Stack`, { env, prefix, stage });
 
 app.synth();
